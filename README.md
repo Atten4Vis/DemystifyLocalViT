@@ -74,9 +74,7 @@ dwnet_base | 74M   | 12.9G  |  83.2   |  [github](https://github.com/Atten4Vis/D
 dynamic_dwnet_base | 162M   | 13.0G  |  83.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dynamic_dwnet_base_224.pth) |
 
 
-For object detection (cascade mask rcnn) and semantic segmentation (upernet), the results is avaliable in below and see [Detection](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/detection) and [Segmentation](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/segmentation) for more details:
-
-Detection:
+Detection (see [Detection](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/detection) for details): 
 | Backbone | Pretrain | Lr Schd | box mAP | mask mAP | #params | FLOPs | config | model |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | DWNet-T | ImageNet-1K | 3x | 49.9 | 43.4 | 82M | 730G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dwnet_tiny_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dwnet_tiny.pth)|
@@ -84,7 +82,7 @@ Detection:
 | Dynamic-DWNet-T | ImageNet-1K | 3x | 50.5 | 43.7 | 108M | 730G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_tiny_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_tiny.pth)|
 | Dynamic-DWNet-B | ImageNet-1K | 3x | 51.2 | 44.4 | 219M | 924G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_base_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_base.pth)|
 
-Segmentation
+Segmentation (see [Segmentation](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/segmentation) for details):
 | Backbone | Pretrain | Lr Schd | mIoU | #params | FLOPs | config | model |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | DWNet-T | ImageNet-1K | 160K | 45.5 | 56M | 928G | [config](downstreams/segmentation/configs/dwnet/upernet_dwnet_tiny_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dwnet_tiny.pth)|
