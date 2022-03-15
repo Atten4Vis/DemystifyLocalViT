@@ -1,4 +1,4 @@
-# On the Connection between Local Attention and Dynamic Depth-wise Convolution, ICLR 2022 spotlight [arxiv](https://arxiv.org/pdf/2106.04263.pdf)
+# On the Connection between Local Attention and Dynamic Depth-wise Convolution  (ICLR 2022 spotlight) [arxiv](https://arxiv.org/pdf/2106.04263.pdf)
 
 This is the official PyTorch implementation of our paper. We simply replace local self attention by (dynamic) depth-wise convolution with lower computational cost. The performance is on par with the Swin Transformer.
 
