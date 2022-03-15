@@ -50,7 +50,7 @@ _C.MODEL.DROP_PATH_RATE = 0.1
 # Label Smoothing
 _C.MODEL.LABEL_SMOOTHING = 0.1
 
-# Swin Transformer parameters
+# DWNet parameters
 _C.MODEL.DWNET = CN()
 _C.MODEL.DWNET.PATCH_SIZE = 4
 _C.MODEL.DWNET.IN_CHANS = 3
@@ -62,22 +62,8 @@ _C.MODEL.DWNET.APE = False
 _C.MODEL.DWNET.PATCH_NORM = True
 _C.MODEL.DWNET.CONV_TYPE = "v1"
 _C.MODEL.DWNET.DYNAMIC = False
-
-# halo Transformer parameters
-_C.MODEL.HALO = CN()
-_C.MODEL.HALO.PATCH_SIZE = 4
-_C.MODEL.HALO.IN_CHANS = 3
-_C.MODEL.HALO.EMBED_DIM = 96
-_C.MODEL.HALO.DEPTHS = [2, 2, 6, 2]
-_C.MODEL.HALO.NUM_HEADS = [3, 6, 12, 24]
-_C.MODEL.HALO.WINDOW_SIZE = [7, 7, 7, 7]
-_C.MODEL.HALO.HALO_SIZE = [3, 3, 3, 3]
-_C.MODEL.HALO.MLP_RATIO = 4.
-_C.MODEL.HALO.QKV_BIAS = True
-_C.MODEL.HALO.QK_SCALE = None
-_C.MODEL.HALO.APE = False
-_C.MODEL.HALO.PATCH_NORM = True
-
+_C.MODEL.DWNET.INHOMO = False
+_C.MODEL.DWNET.INHOMO_HEADS = [ 4, 8, 16, 32 ]
 
 # -----------------------------------------------------------------------------
 # Training settings

@@ -20,4 +20,5 @@ MKL_THREADING_LAYER=GNU python -m torch.distributed.launch \
     --output "output/dwnet_base_patch4_window7_224" \
     --data-set IMNET \
     --batch-size 64 \
-    --amp-opt-level O0
+    --accumulation-steps 2 \
+    --amp-opt-level O1

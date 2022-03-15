@@ -1,0 +1,12 @@
+MODEL:
+  TYPE: iddwnet
+  NAME: iddwnet_tiny_patch4_window7_224
+  DROP_PATH_RATE: 0.2
+  DWNET:
+    EMBED_DIM: 96
+    DEPTHS: [ 2, 2, 6, 2 ]
+    WINDOW_SIZE: 7
+    DYNAMIC: True
+    INHOMO: True
+    INHOMO_HEADS: [ 3, 6, 12, 24 ]
+AMP_OPT_LEVEL: "O0"

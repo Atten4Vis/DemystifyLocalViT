@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
 import torch.nn.functional as F
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
+from .idynamic import IDynamicDWConv
 
 
 class Mlp(nn.Module):
@@ -55,18 +56,23 @@ class DynamicDWConv(nn.Module):
 
 class DWBlock(nn.Module):
 
-    def __init__(self, dim, window_size, dynamic=False):
+    def __init__(self, dim, window_size, dynamic=False, inhomogeneous=False, heads=None):
         super().__init__()
         self.dim = dim
         self.window_size = window_size  # Wh, Ww
         self.dynamic = dynamic 
+        self.inhomogeneous = inhomogeneous
+        self.heads = heads
         
         # pw-linear
         self.conv0 = nn.Conv2d(dim, dim, 1, bias=False)
         self.bn0 = nn.BatchNorm2d(dim)
         
-        if dynamic:
+        if dynamic and not inhomogeneous:
             self.conv = DynamicDWConv(dim, kernel_size=window_size, stride=1, padding=window_size // 2, groups=dim)
+        if dynamic and inhomogeneous:
+            print(window_size, heads)
+            self.conv = IDynamicDWConv(dim, window_size, heads)
         else :
             self.conv = nn.Conv2d(dim, dim, kernel_size=window_size, stride=1, padding=window_size // 2, groups=dim)
         
@@ -80,7 +86,7 @@ class DWBlock(nn.Module):
     def forward(self, x):
         B, H, W, C = x.shape
         
-        x = x.permute(0, 3, 1, 2)
+        x = x.permute(0, 3, 1, 2).contiguous()
         x = self.conv0(x)
         x = self.bn0(x)
         x = self.relu(x)
@@ -92,7 +98,7 @@ class DWBlock(nn.Module):
         x = self.conv2(x)
         x=self.bn2(x)
         
-        x = x.permute(0, 2, 3, 1)
+        x = x.permute(0, 2, 3, 1).contiguous()
         return x
 
     def extra_repr(self) -> str:
@@ -104,8 +110,10 @@ class DWBlock(nn.Module):
         # x = self.conv0(x)
         flops += N * self.dim * self.dim
         # x = self.conv(x)
-        if self.dynamic:
+        if self.dynamic and not self.inhomogeneous:
             flops += (N * self.dim + self.dim * self.dim / 4 + self.dim / 4 * self.dim * self.window_size * self.window_size)
+        elif self.dynamic and self.inhomogeneous:
+            flops += (N * self.dim * self.dim / 4 + N * self.dim / 4 * self.dim / self.heads * self.window_size * self.window_size)
         flops +=  N * self.dim * self.window_size * self.window_size
         #  x = self.conv2(x)
         flops += N * self.dim * self.dim
@@ -117,7 +125,7 @@ class DWBlock(nn.Module):
 class SpatialBlock(nn.Module):
 
     def __init__(self, dim, input_resolution, window_size=7,
-                 mlp_ratio=4.,  drop=0.,  drop_path=0., dynamic=False, act_layer=nn.GELU):
+                 mlp_ratio=4.,  drop=0.,  drop_path=0., dynamic=False, inhomogeneous=False, inhomo_head=None, act_layer=nn.GELU):
         super().__init__()
         self.dim = dim
         self.input_resolution = input_resolution
@@ -125,7 +133,7 @@ class SpatialBlock(nn.Module):
         self.mlp_ratio = mlp_ratio
         self.dynamic = dynamic
 
-        self.attn2conv = DWBlock(dim, window_size, dynamic)
+        self.attn2conv = DWBlock(dim, window_size, dynamic, inhomogeneous, inhomo_head)
 
         self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
 
@@ -211,7 +219,7 @@ class BasicLayer(nn.Module):
 
     def __init__(self, dim, input_resolution, depth, window_size,
                  mlp_ratio=4., drop=0., drop_path=0., norm_layer=nn.LayerNorm, 
-                 downsample=None, use_checkpoint=False, dynamic=False):
+                 downsample=None, use_checkpoint=False, dynamic=False, inhomogeneous=False, inhomo_head=None):
 
         super().__init__()
         self.dim = dim
@@ -226,6 +234,8 @@ class BasicLayer(nn.Module):
                                  mlp_ratio=mlp_ratio,
                                  drop=drop,
                                  dynamic=dynamic,
+                                 inhomogeneous=inhomogeneous,
+                                 inhomo_head=inhomo_head,
                                  drop_path=drop_path[i] if isinstance(drop_path, list) else drop_path)
             for i in range(depth)])
 
@@ -301,7 +311,7 @@ class DWNet(nn.Module):
     def __init__(self, img_size=224, patch_size=4, in_chans=3, num_classes=1000,
                  embed_dim=96, depths=[2, 2, 6, 2], window_size=7, mlp_ratio=4.,
                  drop_rate=0., drop_path_rate=0.1, norm_layer=nn.LayerNorm, 
-                 ape=False, patch_norm=True, use_checkpoint=False, dynamic=False, **kwargs):
+                 ape=False, patch_norm=True, use_checkpoint=False, dynamic=False, inhomogeneous=False, inhomo_heads=None, **kwargs):
         super().__init__()
 
         self.num_classes = num_classes
@@ -344,7 +354,10 @@ class DWNet(nn.Module):
                                norm_layer=norm_layer,
                                downsample=PatchMerging if (i_layer < self.num_layers - 1) else None,
                                use_checkpoint=use_checkpoint,
-                               dynamic=dynamic)
+                               dynamic=dynamic,
+                               inhomogeneous=inhomogeneous,
+                               inhomo_head=inhomo_heads[i_layer])
+                         
             self.layers.append(layer)
 
         self.norm = norm_layer(self.num_features)
