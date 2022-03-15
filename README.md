@@ -1,4 +1,4 @@
-# Demysitifing Local Vision Transformer, [arxiv](https://arxiv.org/pdf/2106.04263.pdf)
+# On the Connection between Local Attention and Dynamic Depth-wise Convolution, ICLR 2022 spotlight [arxiv](https://arxiv.org/pdf/2106.04263.pdf)
 
 This is the official PyTorch implementation of our paper. We simply replace local self attention by (dynamic) depth-wise convolution with lower computational cost. The performance is on par with the Swin Transformer.
 
@@ -10,16 +10,14 @@ Besides, the main contribution of our paper is the theorical and detailed compar
 
 Codes and models for object detection and semantic segmentation are avaliable in *[Detection](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/detection) and [Segmentation](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/segmentation).*
 
-We also give MLP based Swin Transformer models and Inhomogenous dynamic convolution in the ablation studies. These codes and models will coming soon.
-
 
 ## Reference
 ```
-@article{han2021demystifying,
-  title={Demystifying Local Vision Transformer: Sparse Connectivity, Weight Sharing, and Dynamic Weight},
+@inproceedings{han2021connection,
+  title={On the Connection between Local Attention and Dynamic Depth-wise Convolution},
   author={Han, Qi and Fan, Zejia and Dai, Qi and Sun, Lei and Cheng, Ming-Ming and Liu, Jiaying and Wang, Jingdong},
-  journal={arXiv preprint arXiv:2106.04263},
-  year={2021}
+  booktitle={International Conference on Learning Representations},
+  year={2022}
 }
 ```
 ## 1. Requirements
