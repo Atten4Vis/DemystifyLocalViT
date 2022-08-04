@@ -66,10 +66,10 @@ Models are provided by training on ImageNet with resolution 224.
 
 | Model |  #params | FLOPs | Top1 Acc| Download | 
 | :---     |   :---:    |  :---: |  :---:  |  :---:  |
-dwnet_tiny | 24M   | 3.8G  |  81.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dwnet_tiny_224.pth) |
-dynamic_dwnet_tiny | 51M   | 3.8G  |  81.8   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dynamic_dwnet_tiny_224.pth) |
-dwnet_base | 74M   | 12.9G  |  83.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dwnet_base_224.pth) |
-dynamic_dwnet_base | 162M   | 13.0G  |  83.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dynamic_dwnet_base_224.pth) |
+DWNet-tiny | 24M   | 3.8G  |  81.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dwnet_tiny_224.pth) |
+dynamic DWNet-tiny | 51M   | 3.8G  |  81.8   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dynamic_dwnet_tiny_224.pth) |
+DWNet-base | 74M   | 12.9G  |  83.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dwnet_base_224.pth) |
+dynamic dwnet-base | 162M   | 13.0G  |  83.2   |  [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/dynamic_dwnet_base_224.pth) |
 
 
 Detection (see [Detection](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/detection) for details): 
@@ -77,16 +77,16 @@ Detection (see [Detection](https://github.com/Atten4Vis/DemystifyLocalViT/tree/m
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | DWNet-T | ImageNet-1K | 3x | 49.9 | 43.4 | 82M | 730G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dwnet_tiny_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dwnet_tiny.pth)|
 | DWNet-B | ImageNet-1K | 3x | 51.0 | 44.1 | 132M | 924G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dwnet_base_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dwnet_base.pth)|
-| Dynamic-DWNet-T | ImageNet-1K | 3x | 50.5 | 43.7 | 108M | 730G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_tiny_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_tiny.pth)|
-| Dynamic-DWNet-B | ImageNet-1K | 3x | 51.2 | 44.4 | 219M | 924G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_base_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_base.pth)|
+| dynamic DWNet-T | ImageNet-1K | 3x | 50.5 | 43.7 | 108M | 730G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_tiny_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_tiny.pth)|
+| dynamic DWNet-B | ImageNet-1K | 3x | 51.2 | 44.4 | 219M | 924G | [config](downstreams/detection/configs/dwnet/cascade_mask_rcnn_dynamic_dwnet_base_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/cascade_mask_rcnn_dynamic_dwnet_base.pth)|
 
 Segmentation (see [Segmentation](https://github.com/Atten4Vis/DemystifyLocalViT/tree/master/downstreams/segmentation) for details):
 | Backbone | Pretrain | Lr Schd | mIoU | #params | FLOPs | config | model |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | DWNet-T | ImageNet-1K | 160K | 45.5 | 56M | 928G | [config](downstreams/segmentation/configs/dwnet/upernet_dwnet_tiny_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dwnet_tiny.pth)|
 | DWNet-B | ImageNet-1K | 160K | 48.3 | 108M | 1129G | [config](downstreams/segmentation/configs/dwnet/upernet_dwnet_base_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dwnet_base.pth)|
-| Dynamic-DWNet-T | ImageNet-1K | 160K | 45.7 | 83M | 928G | [config](downstreams/segmentation/configs/dwnet/upernet_dynamic_dwnet_tiny_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dynamic_dwnet_tiny.pth)|
-| Dynamic-DWNet-B | ImageNet-1K | 160K | 48.0 | 195M | 1129G | [config](downstreams/segmentation/configs/dwnet/upernet_dynamic_dwnet_base_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dynamic_dwnet_base.pth)|
+| dynamic DWNet-T | ImageNet-1K | 160K | 45.7 | 83M | 928G | [config](downstreams/segmentation/configs/dwnet/upernet_dynamic_dwnet_tiny_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dynamic_dwnet_tiny.pth)|
+| dynamic DWNet-B | ImageNet-1K | 160K | 48.0 | 195M | 1129G | [config](downstreams/segmentation/configs/dwnet/upernet_dynamic_dwnet_base_patch4_window7_512x512_160k_ade20k.py) | [github](https://github.com/Atten4Vis/DemystifyLocalViT/releases/download/prerelease/upernet_dynamic_dwnet_base.pth)|
 
 ## LICENSE
 This repo is under the MIT license. Some codes are borrow from [Swin Transformer](https://github.com/microsoft/Swin-Transformer).
